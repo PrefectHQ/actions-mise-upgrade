@@ -51,6 +51,7 @@ runs:
       if: env.CHANGES == 'true'
       run: |
         git checkout -b $BRANCH_NAME
+        git diff .mise.toml
         git add .mise.toml
         git commit -m 'Update mise tool versions'
         git push --set-upstream origin $BRANCH_NAME
@@ -62,6 +63,7 @@ runs:
         gh pr create \
           --base main \
           --title "Update mise tool versions" \
+          --body "Updates the tool versions managed by mise." \
           --label automated-dependency-updates
       env:
         # Required for the `gh` CLI
